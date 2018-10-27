@@ -1,7 +1,7 @@
 package com.jnpatel2811.otconnect.feature.feed.models
 
 class Post {
-    var imagePath: String? = null
+    var imageUrl: String? = null
     var isHot: Boolean? = null
     var isNot: Boolean? = null
 

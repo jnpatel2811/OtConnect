@@ -15,7 +15,7 @@ object FeedPostsRepo {
         try {
             for (i in 1..17) {
                 val post = Post()
-                post.imagePath = "https://d73xd4ooutekr.cloudfront.net/v4/img/cover-photos/cover-photo-" +
+                post.imageUrl = "https://d73xd4ooutekr.cloudfront.net/v4/img/cover-photos/cover-photo-" +
                         String.format("%03d", i) + ".jpg"
                 if (i in 1..3) {
                     post.isHot = true

@@ -13,14 +13,8 @@ import android.view.View.VISIBLE
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
-import com.jnpatel2811.otconnect.App
-import com.jnpatel2811.otconnect.R
 import java.util.*
 
-
-/**
- * Created by jaypatel on 26/09/18.
- */
 object Utils {
 
     private var mProgressDialog: ProgressDialog? = null

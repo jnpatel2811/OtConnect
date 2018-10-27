@@ -26,7 +26,7 @@ class LoginActivity : BaseActivity(), Contract.View {
 
         /* TODO check if already logged in, then navigate to dashboard.
          if (AccountManager.isUserLoggedIn()) {
-             // open dashboard activity
+             FeedActivity.startMe(mActivity)
              finish()
              return
          }*/

@@ -25,8 +25,6 @@ class FeedListAdapter(var context: Context, var posts: ArrayList<Post>, val view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val post = posts[position]
 
-        Picasso.Builder(context).loggingEnabled(true)
-
         Picasso.get()
             .load(post.imageUrl)
             .resize(260, 180)

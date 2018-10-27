@@ -16,5 +16,9 @@
     <string name="label_please_wait">Please wait…</string>
     <string name="msg_something_went_wrong_please_try_again_later">Something went wrong, please try again later…
     </string>
+
+    <!-- Strings related to feed -->
     <string name="title_activity_feed">Feed</string>
+    <string name="error_while_loading_feed">Some error occoured while loading feed</string>
+    <string name="error_no_feed">No feed found!</string>
 </resources>

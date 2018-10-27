@@ -15,11 +15,11 @@ class FeedListViewModel(application: App) : BaseViewModel(application) {
 
     fun getPosts() {
         val viewState = ViewState()
-        viewState.posts = FeedPostsRepo.getDummyPosts(25).posts
+        viewState.posts = FeedPostsRepo.getDummyPosts().posts
         viewStateLiveData.postValue(viewState)
     }
 
     fun addPost() {
-        FeedPostsRepo.addPost(Utils.getImageUrl(Utils.getRandomNumber(2)))
+        FeedPostsRepo.addPost(Utils.getRandomImageUrl())
     }
 }

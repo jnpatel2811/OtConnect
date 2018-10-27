@@ -18,7 +18,7 @@ object FeedPostsRepo {
             if (postArrayList.isEmpty()) {
                 for (i in 1..numberOfPosts) {
                     val post = Post()
-                    post.imageUrl = Utils.getImageUrl(i)
+                    post.imageUrl = Utils.getRandomImageUrl()
                     if (i in 2..4) {
                         post.isHot = true
                     }

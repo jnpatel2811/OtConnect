@@ -176,15 +176,8 @@ object Utils {
     /**
      * It will return an url for image which can be used for display
      */
-    fun getImageUrl(imageIndex: Int = 1): String {
-        var localImageIndex = imageIndex % 18;
-        if (localImageIndex == 0) {
-            localImageIndex++
-        }
-        return ("https://d73xd4ooutekr.cloudfront.net/v4/img/cover-photos/cover-photo-" + String.format(
-            "%03d",
-            localImageIndex
-        ) + ".jpg")
+    fun getRandomImageUrl(): String {
+        return "https://picsum.photos/${getRandomNumber(3)}"
     }
 
     fun getRandomNumber(numberOfDigits: Int): Int {

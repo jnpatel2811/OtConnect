@@ -14,5 +14,7 @@
     <string name="msg_signing_in">Signing in…</string>
 
     <string name="label_please_wait">Please wait…</string>
-    <string name="msg_something_went_wrong_please_try_again_later">Something went wrong, please try again later…</string>
+    <string name="msg_something_went_wrong_please_try_again_later">Something went wrong, please try again later…
+    </string>
+    <string name="title_activity_feed">Feed</string>
 </resources>

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.jnpatel2811.otconnect.R
 import com.jnpatel2811.otconnect.base.BaseActivity
+import com.jnpatel2811.otconnect.feature.feed.ui.FeedActivity
 import com.jnpatel2811.otconnect.helpers.Utils
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -57,6 +58,7 @@ class LoginActivity : BaseActivity(), Contract.View {
             Utils.hideKeyboard(mActivity)
             showInfoSnackBar("Login succeed.")
 //        AccountManager.setLoggedInUserName("jay") // todo take it from data model
+            FeedActivity.startMe(mActivity)
         }
     }
 

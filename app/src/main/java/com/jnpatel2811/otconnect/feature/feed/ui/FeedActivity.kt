@@ -31,7 +31,7 @@ class FeedActivity : BaseActivity() {
         viewModel.viewStateLiveData.observe(this, Observer {
             Utils.dismissProgressDialog()
 
-            it?.showError?.let { _ ->
+            if (it?.showError!!) {
                 if (it.errorMessage != null) {
                     showInfoSnackBar(it.errorMessage!!)
                 } else {
@@ -39,7 +39,7 @@ class FeedActivity : BaseActivity() {
                 }
             }
 
-            if (it?.posts != null && it.posts!!.size > 0) {
+            if (it.posts != null && it.posts!!.size > 0) {
                 val adapter = feedList.adapter
                 if (adapter != null) {
                     (adapter as FeedListAdapter).dispatchUpdates(it.posts!!)
@@ -48,8 +48,8 @@ class FeedActivity : BaseActivity() {
                     feedList.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
                     feedList.adapter = newAdapter
                 }
-            } else {
-                showInfoSnackBar(getString(R.string.error_no_feed))
+//            } else {
+//                showInfoSnackBar(getString(R.string.error_no_feed))
             }
         })
 

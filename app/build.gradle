@@ -21,9 +21,25 @@ android {
     }
 }
 
+ext {
+    versions = [arch_components: "1.1.1",
+                rx_java        : "2.1.9",
+                rx_android     : "2.0.2"
+    ]
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support:design:28.0.0'
+
+    //android arch components
+    implementation "android.arch.lifecycle:runtime:$versions.arch_components"
+    implementation "android.arch.lifecycle:extensions:$versions.arch_components"
+    annotationProcessor "android.arch.lifecycle:compiler:$versions.arch_components"
+
+    // Rx
+    implementation "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
+    implementation "io.reactivex.rxjava2:rxjava:$versions.rx_java"
 }

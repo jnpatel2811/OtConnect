@@ -35,6 +35,7 @@ class LoginActivity : BaseActivity(), Contract.View {
         }
     }
 
+    // TODO We should show proper Loading UI here using SpinKitView or something..
     override fun showProgressBar(loadingMsg: String?) {
         runOnUiThread {
             Utils.showProgressDialog(

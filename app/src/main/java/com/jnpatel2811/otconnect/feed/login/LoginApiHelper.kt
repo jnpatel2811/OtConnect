@@ -1,4 +1,4 @@
-package com.jnpatel2811.otconnect.login
+package com.jnpatel2811.otconnect.feed.login
 
 object LoginApiHelper {
 

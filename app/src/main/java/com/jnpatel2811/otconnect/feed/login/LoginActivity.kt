@@ -1,4 +1,4 @@
-package com.jnpatel2811.otconnect.login
+package com.jnpatel2811.otconnect.feed.login
 
 import android.content.Context
 import android.content.Intent

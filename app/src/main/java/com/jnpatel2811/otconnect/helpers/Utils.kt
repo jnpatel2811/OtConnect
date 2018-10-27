@@ -63,7 +63,12 @@ object Utils {
         }
     }
 
-    fun showAlertDialog(ctx: Context?, title: String? = null, body: String? = null, okListener: DialogInterface.OnClickListener? = null) {
+    fun showAlertDialog(
+        ctx: Context?,
+        title: String? = null,
+        body: String? = null,
+        okListener: DialogInterface.OnClickListener? = null
+    ) {
         try {
             if (ctx != null) {
                 val builder = AlertDialog
@@ -97,7 +102,15 @@ object Utils {
      * @param yesLabel    Label for yes button
      * @param noLabel     Label for no button
      */
-    fun showConfirmDialog(ctx: Context, title: String?, message: String, yesListener: DialogInterface.OnClickListener?, noListener: DialogInterface.OnClickListener?, yesLabel: String, noLabel: String) {
+    fun showConfirmDialog(
+        ctx: Context,
+        title: String?,
+        message: String,
+        yesListener: DialogInterface.OnClickListener?,
+        noListener: DialogInterface.OnClickListener?,
+        yesLabel: String,
+        noLabel: String
+    ) {
         var yesListener = yesListener
         var noListener = noListener
 
@@ -115,13 +128,17 @@ object Utils {
             builder.setTitle(title)
         }
 
-        builder.setMessage(message).setPositiveButton(yesLabel, yesListener).setNegativeButton(noLabel, noListener).show()
+        builder.setMessage(message).setPositiveButton(yesLabel, yesListener).setNegativeButton(noLabel, noListener)
+            .show()
     }
 
     fun hideKeyboard(context: Context) {
         try {
             val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputManager.hideSoftInputFromWindow((context as Activity).currentFocus!!.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+            inputManager.hideSoftInputFromWindow(
+                (context as Activity).currentFocus!!.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
         } catch (e: Exception) {
             // no-op
         }
@@ -155,5 +172,48 @@ object Utils {
         val uuid = UUID.randomUUID().toString()
         return uuid.replace("-".toRegex(), "").substring(0, length)   // strip - from it and then return the substring
     }
+
+    /**
+     * It will return an url for image which can be used for display
+     */
+    fun getImageUrl(imageIndex: Int = 1): String {
+        var localImageIndex = imageIndex % 18;
+        if (localImageIndex == 0) {
+            localImageIndex++
+        }
+        return ("https://d73xd4ooutekr.cloudfront.net/v4/img/cover-photos/cover-photo-" + String.format(
+            "%03d",
+            localImageIndex
+        ) + ".jpg")
+    }
+
+    fun getRandomNumber(numberOfDigits: Int): Int {
+        val eightDigitRandomNumber = StringBuilder()
+        val time = System.currentTimeMillis() //13 digit number
+
+        while (eightDigitRandomNumber.length < numberOfDigits) {
+            try {
+                //dividing time string by random (1 to 9) and picking some number from random index (0 to 9)
+                val randomNum = (time / (1..9).random()).toString()[(1..9).random()]
+
+                if (eightDigitRandomNumber.isEmpty()) {
+                    // not allow zero as first char
+                    if (randomNum != '0') {
+                        eightDigitRandomNumber.append(randomNum)
+                    }
+                } else {
+                    eightDigitRandomNumber.append(randomNum)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+        return eightDigitRandomNumber.toString().toInt()
+    }
+
+    private fun ClosedRange<Int>.random() =
+        Random().nextInt(endInclusive - start) + start
+
 
 }

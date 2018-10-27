@@ -53,6 +53,12 @@ class FeedActivity : BaseActivity() {
             }
         })
 
+        addPostFab?.setOnClickListener {
+            viewModel.addPost()
+            viewModel.getPosts()
+        }
+
+
     }
 
     companion object {

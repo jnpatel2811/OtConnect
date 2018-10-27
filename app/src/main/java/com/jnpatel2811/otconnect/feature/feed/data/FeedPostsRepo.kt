@@ -2,6 +2,7 @@ package com.jnpatel2811.otconnect.feature.feed.data
 
 import com.jnpatel2811.otconnect.feature.feed.models.Post
 import com.jnpatel2811.otconnect.feature.feed.models.PostListResult
+import com.jnpatel2811.otconnect.helpers.Utils
 
 /**
  * class that deals with getting posts from data source, such as DB or Direbase
@@ -10,21 +11,23 @@ import com.jnpatel2811.otconnect.feature.feed.models.PostListResult
  */
 object FeedPostsRepo {
 
-    fun getDummyPosts(): PostListResult {
-        val postArrayList = arrayListOf<Post>()
-        try {
-            for (i in 1..17) {
-                val post = Post()
-                post.imageUrl = "https://d73xd4ooutekr.cloudfront.net/v4/img/cover-photos/cover-photo-" +
-                        String.format("%03d", i) + ".jpg"
-                if (i in 1..3) {
-                    post.isHot = true
-                }
+    private val postArrayList by lazy { arrayListOf<Post>() }
 
-                if (i in 5..7) {
-                    post.isNot = true
+    fun getDummyPosts(numberOfPosts: Int = 20): PostListResult {
+        try {
+            if (postArrayList.isEmpty()) {
+                for (i in 1..numberOfPosts) {
+                    val post = Post()
+                    post.imageUrl = Utils.getImageUrl(i)
+                    if (i in 2..4) {
+                        post.isHot = true
+                    }
+
+                    if (i in 6..9) {
+                        post.isNot = true
+                    }
+                    postArrayList.add(post)
                 }
-                postArrayList.add(post)
             }
         } catch (e: Exception) {
             // TODO log exception here
@@ -33,5 +36,11 @@ object FeedPostsRepo {
         val postListResult = PostListResult()
         postListResult.posts = postArrayList
         return postListResult
+    }
+
+    fun addPost(imageUrl: String) {
+        val post = Post()
+        post.imageUrl = imageUrl
+        postArrayList.add(0, post)
     }
 }

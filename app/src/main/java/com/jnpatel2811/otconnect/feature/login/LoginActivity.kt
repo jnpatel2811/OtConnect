@@ -1,4 +1,4 @@
-package com.jnpatel2811.otconnect.feed.login
+package com.jnpatel2811.otconnect.feature.login
 
 import android.content.Context
 import android.content.Intent
@@ -6,6 +6,8 @@ import android.os.Bundle
 import com.jnpatel2811.otconnect.R
 import com.jnpatel2811.otconnect.base.BaseActivity
 import com.jnpatel2811.otconnect.feature.feed.ui.FeedActivity
+import com.jnpatel2811.otconnect.feed.login.Contract
+import com.jnpatel2811.otconnect.feed.login.LoginPresenter
 import com.jnpatel2811.otconnect.helpers.Utils
 import kotlinx.android.synthetic.main.activity_login.*
 

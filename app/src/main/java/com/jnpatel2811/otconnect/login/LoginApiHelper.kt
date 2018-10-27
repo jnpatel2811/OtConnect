@@ -16,6 +16,6 @@ object LoginApiHelper {
 
     interface LoginListener {
         fun onSuccess()
-        fun onError(t: Throwable)
+        fun onError(e: Exception)
     }
 }

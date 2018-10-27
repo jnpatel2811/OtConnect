@@ -5,14 +5,17 @@ import android.content.Intent
 import android.os.Bundle
 import com.jnpatel2811.otconnect.R
 import com.jnpatel2811.otconnect.base.BaseActivity
-import com.jnpatel2811.otconnect.helpers.AccountManager
 import com.jnpatel2811.otconnect.helpers.Utils
 import kotlinx.android.synthetic.main.activity_login.*
 
 /**
  * A login screen that offers login via username/password.
  */
-class LoginActivity : BaseActivity() {
+class LoginActivity : BaseActivity(), Contract.View {
+
+    private val presenter by lazy {
+        LoginPresenter(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,45 +28,57 @@ class LoginActivity : BaseActivity() {
              return
          }*/
         signInBtn.setOnClickListener {
-            attemptLogin()
+            presenter.doLogin("jay", "patel") // dummy data
         }
     }
 
-    private fun attemptLogin() {
-        signInBtn?.isEnabled = false
-        Utils.hideKeyboard(mActivity)
-        Utils.showProgressDialog(
-            mActivity,
-            getString(R.string.label_please_wait),
-            getString(R.string.msg_signing_in),
-            null,
-            false
-        )
+    override fun showProgressBar(loadingMsg: String?) {
+        runOnUiThread {
+            Utils.showProgressDialog(
+                mActivity,
+                getString(R.string.label_please_wait),
+                if (loadingMsg.isNullOrBlank()) getString(R.string.msg_signing_in) else loadingMsg!!,
+                null,
+                false
+            )
+        }
+    }
 
-        // todo need to send data model here
-        LoginApiHelper.doLogin(object : LoginApiHelper.LoginListener {
-            override fun onSuccess() {
-                runOnUiThread {
-                    signInBtn?.isEnabled = true
-                    Utils.hideKeyboard(mActivity)
-                    Utils.dismissProgressDialog()
-                    AccountManager.setLoggedInUserName("jay") // todo take it from data model
-                    showInfoSnackBar("Login succeed.")
-                    // TODO open dashboard
-                    //DashboardActivity.startMe(mActivity)
-                    finish()
-                }
-            }
+    override fun hideProgressBar() {
+        runOnUiThread {
+            Utils.dismissProgressDialog()
+        }
+    }
 
-            override fun onError(t: Throwable) {
-                runOnUiThread {
-                    signInBtn?.isEnabled = true
-                    Utils.hideKeyboard(mActivity)
-                    Utils.dismissProgressDialog()
-                    showInfoSnackBar("Login failed. Reason : Some error!")
-                }
-            }
-        })
+    override fun onLoggedIn(username: String) {
+        runOnUiThread {
+            signInBtn?.isEnabled = true
+            hideProgressBar()
+            Utils.hideKeyboard(mActivity)
+            showInfoSnackBar("Login succeed.")
+//        AccountManager.setLoggedInUserName("jay") // todo take it from data model
+        }
+    }
+
+    override fun onLoginProcessStarted() {
+        runOnUiThread {
+            signInBtn?.isEnabled = false
+            showProgressBar(getString(R.string.msg_signing_in))
+        }
+    }
+
+    override fun onInvalidDataInput(errorMsg: String?) {
+        runOnUiThread {
+            showToast(if (errorMsg.isNullOrBlank()) getString(R.string.msg_something_went_wrong_please_try_again_later) else errorMsg!!)
+        }
+    }
+
+    override fun onLoginError(e: Exception?, errorMsg: String?) {
+        runOnUiThread {
+            val errMsg =
+                if (errorMsg.isNullOrBlank()) getString(R.string.msg_something_went_wrong_please_try_again_later) else errorMsg!!
+            showInfoSnackBar("Login failed. Reason : Some $errMsg!")
+        }
     }
 
     companion object {
